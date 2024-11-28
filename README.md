@@ -23,8 +23,8 @@ This repository contains a script to fetch US CPI data and calculate the inflati
    ```bash
    python scripts/fetch_inflation_data.py
 The result is:
-   DATE
-2024-07-01    0.104404
-2024-08-01    0.286056
-2024-09-01    0.522921
-2024-10-01    0.612374
+DATE
+2024-03-31    0.938227
+2024-06-30    0.697987
+2024-09-30    0.304423
+2024-12-31    0.426703
