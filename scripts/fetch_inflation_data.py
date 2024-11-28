@@ -12,13 +12,22 @@ def calculate_inflation(cpi_data):
     Calculates the inflation rate for the last 4 quarters.
     
     Parameters:
-        cpi_data (pd.DataFrame): A DataFrame with CPI data.
+        cpi_data (pd.DataFrame): A DataFrame with CPI data, ideally at monthly or higher frequency.
         
     Returns:
-        list: A list of inflation rates for the last 4 quarters.
+        pd.Series: A Series of inflation rates for the last 4 quarters.
     """
-    cpi_data["pct_change"] = cpi_data["CPIAUCSL"].pct_change(periods=3) * 100
-    last_4_quarters = cpi_data["pct_change"].dropna().tail(4)
+    # Ensure the index is datetime
+    cpi_data.index = pd.to_datetime(cpi_data.index)
+    
+    # Resample to quarterly frequency
+    quarterly_cpi = cpi_data["CPIAUCSL"].resample('Q').mean()
+    
+    # Calculate percentage change for quarterly data
+    quarterly_cpi_pct_change = quarterly_cpi.pct_change(periods=1) * 100
+    
+    # Extract the last 4 quarters' inflation rates
+    last_4_quarters = quarterly_cpi_pct_change.dropna().tail(4)
     return last_4_quarters
 
 if __name__ == "__main__":
