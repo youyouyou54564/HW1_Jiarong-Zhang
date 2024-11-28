@@ -1,5 +1,6 @@
 import os
 import sys
+import pandas as pd
 
 # Add src to the Python path
 src_path = os.path.join(os.path.dirname(__file__), "..", "src")
